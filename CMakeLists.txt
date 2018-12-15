@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(hello main.c)
 add_executable(daytime daytime.c)
+add_executable(daytimeserver daytimeserver.c)
+
 add_executable(size size.c)
