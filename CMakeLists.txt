@@ -8,3 +8,4 @@ add_executable(daytime daytime.c)
 add_executable(daytimeserver daytimeserver.c)
 
 add_executable(size size.c)
+add_executable(byteorder byteorder.c)
