@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     if (fd < 0) {
         perror("socket error");
+        return 0;
     }
 
     struct sockaddr_in addr;
