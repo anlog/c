@@ -13,3 +13,10 @@ add_executable(echoserver echoserver.c)
 add_executable(c c.c)
 add_executable(size size.c)
 add_executable(byteorder byteorder.c)
+
+## c from android source
+add_library(host SHARED
+        android/libhost/copyFile.c
+        android/libhost/include/host/copyFile.h)
+
+## end c from android source
