@@ -10,5 +10,6 @@ add_executable(daytimeserver daytimeserver.c)
 add_executable(echo echo.c)
 add_executable(echoserver echoserver.c)
 
+add_executable(c c.c)
 add_executable(size size.c)
 add_executable(byteorder byteorder.c)
