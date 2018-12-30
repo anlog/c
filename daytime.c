@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
 
     if (argc != 2) {
         perror("usage: xx <ip address>");
+        return 0;
     }
 
     int fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -29,10 +30,12 @@ int main(int argc, char **argv) {
     int ret = inet_pton(AF_INET, argv[1], &addr.sin_addr);
     if (ret < 0) {
         perror("inet_pton error");
+        return 0;
     }
 
     if (connect(fd, (struct sockaddr *) &addr, sizeof(addr)) < 0) {
         perror("connect error");
+        return 0;
     }
 
 #define BUF 1024
@@ -42,11 +45,13 @@ int main(int argc, char **argv) {
         recv[n] = '\0';
         if (fputs(recv, stdout) == EOF) {
             perror("fputs error");
+            return 0;
         }
     }
 
     if (n < 0) {
         perror("read error");
+        return 0;
     }
     exit(0);
 }
