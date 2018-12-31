@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -28,19 +29,24 @@ int main(int argc, char **argv) {
     char buf[1024];
     ssize_t m, n;
     for (;;) {
-        fgets(buf, sizeof(buf), stdin);
-        if (n <= 1) {
+        if (fgets(buf, sizeof(buf), stdin) && strlen(buf) == 0) {
+            printf("continue\n");
+            continue;
+        }
+//        printf("=====> %d", strncmp("q", buf, 1));
+        if (0 == strncmp("q", buf, 1)) {
             break;
         }
-        if (write(sock, buf, sizeof(buf)) <= 0) {
+        if (write(sock, buf, strlen(buf)) <= 0) {
             perror("write");
             return 0;
         }
+        printf("write: %s@%ld\n", buf, strlen(buf));
 
         if ((n = read(sock, buf, sizeof(buf))) == 0) {
             break;
         }
-        printf("read: %s", buf);
+        printf("read: %s@%ld\n", buf, n);
     }
     close(sock);
 }
