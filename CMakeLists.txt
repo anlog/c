@@ -39,3 +39,7 @@ message("LIBUSB_LIBRARY: " ${LIBUSB_LIBRARY})
 target_include_directories(lsusb PUBLIC ${LIBUSB_INCLUDE_DIR} ${CURL_INCLUDE_PATH})
 target_link_libraries(lsusb ${LIBUSB_LIBRARY} ${CURL_LIBRARIES})
 ## add lsusb end
+
+project(hello_cpp CXX)
+add_executable(hello_class
+        cpp/hello_class.cpp)
