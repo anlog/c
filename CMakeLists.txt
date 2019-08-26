@@ -40,6 +40,12 @@ target_include_directories(lsusb PUBLIC ${LIBUSB_INCLUDE_DIR} ${CURL_INCLUDE_PAT
 target_link_libraries(lsusb ${LIBUSB_LIBRARY} ${CURL_LIBRARIES})
 ## add lsusb end
 
+add_executable(cpopen cpopen.c)
+add_executable(pointer_test pointer_test.c)
+add_executable(cdata cdata.c)
+
 project(hello_cpp CXX)
 add_executable(hello_class
         cpp/hello_class.cpp)
+add_executable(vector_for_each
+        cpp/vector_for_each.cpp)
