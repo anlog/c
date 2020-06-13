@@ -4,23 +4,29 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #define __USE_GNU
 
-void strchrs();
+void strchr_test();
 
 void malloc_test();
+
+const char *va_arg_test(char *first, ...);
 
 int main(void) {
     printf("glibc_test\n");
 
+    // test va_arg va_start va_end
+    printf("va_arg_test: %s\n", va_arg_test("", "abc", "uvw", "def", "xyz"));
+
+    return 0;
     // test malloc realloc free
     malloc_test();
-
-
     // test strchr strrchr strchrnul
-    strchrs();
+    strchr_test();
 }
+
 
 void malloc_test() {
     void *pVoid = calloc(sizeof(int), 10);
@@ -43,7 +49,7 @@ const char *strchrnul(const char *str, char c) {
     return str + strlen(str);
 }
 
-void strchrs() {
+void strchr_test() {
 
     char *string = "abacgdedfghcjk";
 
@@ -58,4 +64,31 @@ void strchrs() {
     printf("strchrs: strchr %c - %s\n", 'c', strrchr(string, 'c'));
     printf("strchrs: strchrnul %c - %s\n", 'g', strchrnul(string, 'g'));
 
+}
+
+const char *va_arg_test(char *first, ...) {
+    va_list args;
+    va_start(args, first);
+    ssize_t len = strlen(first);
+    char *tmp;
+    while ((tmp = va_arg(args, char*))) {
+        len += strlen(tmp);
+    }
+    va_end(args);
+
+    char *ret = malloc(sizeof(char) * len + 1);
+    if (!ret) {
+        perror("malloc failed");
+        return NULL;
+    }
+
+    strcat(ret, first);
+
+    va_start(args, first);
+    while ((tmp = va_arg(args, char*))) {
+        strcat(ret, tmp);
+    }
+    va_end(args);
+    *(ret + len) = '\0';
+    return ret;
 }
