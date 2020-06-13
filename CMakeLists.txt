@@ -51,3 +51,5 @@ add_executable(vector_for_each
         cpp/vector_for_each.cpp)
 
 add_subdirectory(linux)
+
+add_subdirectory(android/ndk)
