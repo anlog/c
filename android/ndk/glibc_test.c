@@ -66,6 +66,10 @@ void strchr_test() {
 
 }
 
+static void freep(void *p) {
+    free(*(void **) p);
+}
+
 const char *va_arg_test(char *first, ...) {
     va_list args;
     va_start(args, first);
@@ -76,12 +80,12 @@ const char *va_arg_test(char *first, ...) {
     }
     va_end(args);
 
-    char *ret = malloc(sizeof(char) * len + 1);
+    __attribute__ ((cleanup(freep))) char *ret = malloc(sizeof(char) * len + 1);
     if (!ret) {
         perror("malloc failed");
         return NULL;
     }
-
+    *ret = '\0';
     strcat(ret, first);
 
     va_start(args, first);
