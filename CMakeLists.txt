@@ -53,3 +53,5 @@ add_executable(vector_for_each
 add_subdirectory(linux)
 
 add_subdirectory(android/ndk)
+
+add_subdirectory(threads)
