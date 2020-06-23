@@ -43,6 +43,10 @@ void do_threads() {
     pthread_mutex_lock(&mutex);
     printf("lock\n");
     int tid = pthread_create(&t, NULL, loop_thread, NULL);
+
+    struct _opaque_pthread_t tt = (struct _opaque_pthread_t) *t;
+    printf("tt: %ld--- %s", tt.__sig, tt.__opaque);
+
     int a = 1;
     int tid2 = pthread_create(&t2, NULL, loop_thread, &a);
 
